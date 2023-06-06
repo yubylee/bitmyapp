@@ -3,28 +3,53 @@
  */
 package bitmyapp;
 
+import java.util.Date;
+import java.util.Scanner;
+
 public class App {
   public static void main(String[] args) {
 
-    int no = 1;
-    String name = "홍길동";
-    String tel = "010-1110-2222";
-    String postNo = "06656";
-    String basicAddress = "서울시 서초구 반포대로";
-    String detailAddress = "101동 201호";
-    boolean working = false;
-    char gender = 'M';
-    byte level = 0;
-    String createdDate = "2022-12-29";
+    Scanner keyScanner = new Scanner(System.in);
+
+    System.out.print("번호? ");
+    int no = Integer.parseInt(keyScanner.nextLine());
+
+    System.out.print("이름? ");
+    String name = keyScanner.nextLine();
+
+    System.out.print("전화? ");
+    String tel = keyScanner.nextLine();
+
+    System.out.print("우편번호? ");
+    String postNo = keyScanner.nextLine();
+
+    System.out.print("주소1? ");
+    String basicAddress = keyScanner.nextLine();
+
+    System.out.print("주소2? ");
+    String detailAddress = keyScanner.nextLine();
+
+    System.out.println("0. 미취업");
+    System.out.println("1. 재직중");
+    System.out.print("재직자? ");
+    boolean working = Integer.parseInt(keyScanner.nextLine()) == 1;
+
+    System.out.println("0. 비전공자");
+    System.out.println("1. 준전공자");
+    System.out.println("2. 전공자");
+    System.out.print("전공? ");
+    byte level = Byte.parseByte(keyScanner.nextLine());
+
+    Date today = new Date(System.currentTimeMillis());
+    String createdDate = today.toString();
 
     System.out.printf("번호: %d\n", no);
     System.out.printf("이름: %s\n", name);
     System.out.printf("전화: %s\n", tel);
-    System.out.printf("우편번호: %s\n", postNo);
-    System.out.printf("주소1: %S\n", basicAddress);
-    System.out.printf("주소2: %S\n", detailAddress);
-    System.out.printf("재직자: %s\n", working ? "예" : "아니오");
-    System.out.printf("성별: %S\n", gender == 'M'? "남자" : "여자");
+    System.out.printf("우편번호 : %s\n", postNo);
+    System.out.printf("주소1 : %s\n", basicAddress);
+    System.out.printf("주소2 : %s\n", detailAddress);
+    System.out.printf("재직자 : %s\n", working ? "예" : "아니오");
 
     String levelTitle;
     switch(level) {
@@ -33,6 +58,7 @@ public class App {
       default: levelTitle = "전공자";
     }
     System.out.printf("전공: %s\n", levelTitle);
+
     System.out.printf("가입일: %s\n", createdDate);
   }
 }
