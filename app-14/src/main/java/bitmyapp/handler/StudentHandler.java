@@ -1,5 +1,6 @@
 package bitmyapp.handler;
 
+import java.util.Date;
 import bitmyapp.dao.StudentDao;
 import bitmyapp.util.Prompt;
 import bitmyapp.vo.Student;
@@ -24,18 +25,18 @@ public class StudentHandler {
     s.setWorking(Prompt.inputInt("0. 미취업\n1. 재직중\n재직자? ") == 1);
     s.setGender(Prompt.inputInt("0. 남자\n1. 여자\n성별? ") == 0 ? 'M' : 'W');
     s.setLevel((byte) Prompt.inputInt("0. 비전공자\n1. 준전공자\n2. 전공자\n전공? "));
+    s.setCreatedDate(new Date(System.currentTimeMillis()).toString());
 
     this.studentDao.insert(s);
   }
 
   private void printStudents() {
 
-    Object[] students = this.studentDao.findAll();
+    Student[] students = this.studentDao.findAll();
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Object obj : students) {
-      Student s = (Student) obj;
+    for (Student s : students) {
       System.out.printf("%d\t%s\t%s\t%s\t%s\n",
           s.getNo(), s.getName(), s.getTel(),
           s.isWorking() ? "예" : "아니오",
@@ -138,14 +139,13 @@ public class StudentHandler {
 
   private void searchStudent() {
 
-    Object[] students = this.studentDao.findAll();
+    Student[] students = this.studentDao.findAll();
 
     String name = Prompt.inputString("이름? ");
 
     System.out.println("번호\t이름\t전화\t재직\t전공");
 
-    for (Object obj : students) {
-      Student s = (Student) obj;
+    for (Student s : students) {
       if (s.getName().equalsIgnoreCase(name)) {
         System.out.printf("%d\t%s\t%s\t%s\t%s\n",
             s.getNo(), s.getName(), s.getTel(),

@@ -29,12 +29,11 @@ public class TeacherHandler {
 
   private void printTeachers() {
 
-    Object[] teachers = this.teacherDao.findAll();
+    Teacher[] teachers = this.teacherDao.findAll();
 
     System.out.println("번호\t이름\t전화\t학위\t전공\t시강료");
 
-    for (Object obj : teachers) {
-      Teacher t = (Teacher) obj;
+    for (Teacher t : teachers) {
       System.out.printf("%d\t%s\t%s\t%s\t%s\t%d\n",
           t.getNo(), t.getName(), t.getTel(),
           getDegreeText(t.getDegree()), t.getMajor(), t.getWage());

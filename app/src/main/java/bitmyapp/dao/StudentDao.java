@@ -1,48 +1,33 @@
 package bitmyapp.dao;
 
-import java.util.Arrays;
+import java.util.Date;
 import bitmyapp.vo.Student;
 
-public class StudentDao {
-  private static final int SIZE = 100;
+public class StudentDao extends ObjectDao {
 
-  private int count;
-  private Student[] students = new Student[SIZE];
-
-  public void insert(Student student) {
-    this.students[this.count++] = student;
-  }
-
-  public Student[] findAll() {
-    return Arrays.copyOf(students, count);
-  }
+  int lastNo;
 
   public Student findByNo(int no) {
-    for (int i = 0; i < count; i++) {
-      if (this.students[i].getNo() == no) {
-        return this.students[i];
-      }
-    }
-    return null;
+    Student s = new Student();
+    s.setNo(no);
+    return (Student) this.get(this.indexOf(s));
   }
 
-  public void update(Student student) {
-    this.students[this.indexOf(student)] = student;
-  }
-
-  public void delete(Student student) {
-    for (int i = this.indexOf(student) + 1; i < this.count; i++) {
-      this.students[i - 1] = this.students[i];
-    }
-    this.students[--this.count] = null;
-  }
-
-  private int indexOf(Student s) {
-    for (int i = 0; i < this.count; i++) {
-      if (this.students[i].getNo() == s.getNo()) {
-        return 1;
+  @Override
+  protected int indexOf(Object obj) {
+    for (int i = 0; i < this.size(); i++) {
+      if (((Student) this.objects[i]).getNo() == ((Student) obj).getNo()) {
+        return i;
       }
     }
     return -1;
+  }
+
+  @Override
+  public void insert(Object object) {
+    Student s = (Student) object;
+    s.setNo(++lastNo);
+    s.setCreatedDate(new Date(System.currentTimeMillis()).toString());
+    super.insert(object);
   }
 }
