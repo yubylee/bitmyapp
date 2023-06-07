@@ -10,8 +10,6 @@ public class MemberHandler {
   // 레퍼런스 배열 준비
   static Member[] members = new Member[SIZE];
 
-  static String title = "회원관리";
-
   static void inputMember() {
     Member m = new Member();
     m.no = Prompt.inputInt("번호? ");
@@ -148,33 +146,16 @@ public class MemberHandler {
     return -1;
   }
 
-  static void searchMember() {
-    String name = Prompt.inputString("이름? ");
-
-    System.out.println("번호\t이름\t전화\t재직\t전공");
-
-    for (int i = 0; i < count; i++) {
-      Member m = members[i];
-      if (m.name.equalsIgnoreCase(name)) {
-        System.out.printf("%d\t%s\t%s\t%s\t%s\n",
-            m.no, m.name, m.tel,
-            m.working ? "예" : "아니오",
-                getLevelText(m.level));
-      }
-    }
-  }
-
   static void service() {
     while(true) {
-      System.out.println(title);
+      System.out.println("[회원관리]");
       System.out.println("1. 등록");
       System.out.println("2. 목록");
       System.out.println("3. 조회");
       System.out.println("4. 변경");
       System.out.println("5. 삭제");
-      System.out.println("6. 검색");
       System.out.println("0. 이전");
-      int menuNo = Prompt.inputInt(String.format("%s> ", title));
+      int menuNo = Prompt.inputInt("회원관리> ");
 
       switch(menuNo) {
         case 0: return;
@@ -183,7 +164,6 @@ public class MemberHandler {
         case 3: printMember(); break;
         case 4: modifyMember(); break;
         case 5: deleteMember(); break;
-        case 6: searchMember(); break;
         default:
           System.out.println("잘못된 메뉴 번호 입니다.");
       }

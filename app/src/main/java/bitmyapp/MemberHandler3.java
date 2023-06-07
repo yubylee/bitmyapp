@@ -2,7 +2,7 @@ package bitmyapp;
 
 import java.util.Date;
 
-public class MemberHandler {
+public class MemberHandler3 {
 
   static final int SIZE = 100;
   static int count = 0;
